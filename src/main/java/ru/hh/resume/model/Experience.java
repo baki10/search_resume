@@ -1,6 +1,11 @@
 package ru.hh.resume.model;
 
-public class Experience {
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+
+@Entity
+public class Experience extends BaseEntity{
 
   private String company;
   private String url;
@@ -8,6 +13,7 @@ public class Experience {
   private String duration;
   private String position;
   private String description;
+  private Resume resume;
 
   public String getDuration() {
     return duration;
@@ -55,6 +61,15 @@ public class Experience {
 
   public void setUrl(String url) {
     this.url = url;
+  }
+
+  @ManyToOne(cascade = CascadeType.ALL)
+  public Resume getResume() {
+    return resume;
+  }
+
+  public void setResume(Resume resume) {
+    this.resume = resume;
   }
 
   @Override

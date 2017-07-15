@@ -1,9 +1,13 @@
 package ru.hh.resume.model;
 
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
 import java.util.Date;
 import java.util.List;
 
-public class Resume {
+@Entity
+public class Resume extends BaseEntity {
 
   private String photoSrc;
   private String gender;
@@ -71,6 +75,7 @@ public class Resume {
     this.aboutMe = aboutMe;
   }
 
+  @OneToMany(mappedBy = "resume")
   public List<Education> getEducationList() {
     return educationList;
   }
@@ -79,6 +84,7 @@ public class Resume {
     this.educationList = educationList;
   }
 
+  @OneToMany(mappedBy = "resume")
   public List<Experience> getExperienceList() {
     return experienceList;
   }

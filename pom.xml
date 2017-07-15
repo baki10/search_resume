@@ -16,6 +16,9 @@
     <jcl.slf4j-version>1.7.25</jcl.slf4j-version>
     <logback-version>1.2.3</logback-version>
     <jsoup-version>1.8.3</jsoup-version>
+    <hibernate-version>5.2.6.Final</hibernate-version>
+    <postgresql-version>9.1-901-1.jdbc4</postgresql-version>
+    <dbcp-version>1.4</dbcp-version>
   </properties>
 
   <dependencies>
@@ -38,6 +41,13 @@
       <artifactId>spring-webmvc</artifactId>
       <version>${spring-version}</version>
     </dependency>
+
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-orm</artifactId>
+      <version>${spring-version}</version>
+    </dependency>
+
 
     <!-- Bridge logging from JCL to SLF4j-->
     <dependency>
@@ -72,6 +82,23 @@
       <groupId>org.jsoup</groupId>
       <artifactId>jsoup</artifactId>
       <version>${jsoup-version}</version>
+    </dependency>
+
+    <!-- db-->
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-core</artifactId>
+      <version>${hibernate-version}</version>
+    </dependency>
+    <dependency>
+      <groupId>postgresql</groupId>
+      <artifactId>postgresql</artifactId>
+      <version>${postgresql-version}</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-dbcp</groupId>
+      <artifactId>commons-dbcp</artifactId>
+      <version>${dbcp-version}</version>
     </dependency>
 
     <!-- Test-->

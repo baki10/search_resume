@@ -1,10 +1,16 @@
 package ru.hh.resume.model;
 
-public class Education {
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+
+@Entity
+public class Education extends BaseEntity{
 
   private String year;
   private String name;
   private String type;
+  private Resume resume;
 
   public String getName() {
     return name;
@@ -28,6 +34,15 @@ public class Education {
 
   public void setYear(String year) {
     this.year = year;
+  }
+
+  @ManyToOne(cascade = CascadeType.ALL)
+  public Resume getResume() {
+    return resume;
+  }
+
+  public void setResume(Resume resume) {
+    this.resume = resume;
   }
 
   @Override
