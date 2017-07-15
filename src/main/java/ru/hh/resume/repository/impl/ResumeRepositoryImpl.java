@@ -2,8 +2,11 @@ package ru.hh.resume.repository.impl;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import ru.hh.resume.model.Education;
+import ru.hh.resume.model.Experience;
 import ru.hh.resume.model.Resume;
 import ru.hh.resume.repository.ResumeRepository;
 
@@ -21,7 +24,18 @@ public class ResumeRepositoryImpl implements ResumeRepository {
 
   @Override
   public List<Resume> getAll() {
-    return getSession().createQuery("from Resume", Resume.class).list();
+    List<Resume> resumes = getSession().createQuery("from Resume", Resume.class).list();
+    resumes.forEach(resume -> {
+      Query<Education> educationQuery = getSession().createQuery("from Education e where e.resume.id =:id", Education.class);
+      educationQuery.setParameter("id", resume.getId());
+      resume.setEducationList(educationQuery.list());
+
+      Query<Experience> experienceQuery = getSession().createQuery("from Experience e where e.resume.id =:id", Experience.class);
+      experienceQuery.setParameter("id", resume.getId());
+      resume.setExperienceList(experienceQuery.list());
+    });
+
+    return resumes;
   }
 
   @Override
@@ -31,7 +45,7 @@ public class ResumeRepositoryImpl implements ResumeRepository {
 
   @Override
   public void save(Resume resume) {
-    getSession().saveOrUpdate(resume);
+    getSession().save(resume);
   }
 
   @Override

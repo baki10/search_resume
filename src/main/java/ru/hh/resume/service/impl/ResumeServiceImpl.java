@@ -3,7 +3,6 @@ package ru.hh.resume.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.hh.resume.model.Education;
 import ru.hh.resume.model.Resume;
 import ru.hh.resume.repository.ResumeRepository;
 import ru.hh.resume.service.ResumeService;
@@ -45,11 +44,11 @@ public class ResumeServiceImpl implements ResumeService {
   @Override
   public void refreshDataFromHhRu() {
     List<Resume> resumes = new HhRuParser().parse();
-    if(resumes.isEmpty()){
+    if (resumes.isEmpty()) {
       throw new RuntimeException("No resume found in hh.ru");
     }
     resumeRepository.removeAll();
-    resumeRepository.saveAll(resumes);
+    saveAll(resumes);
   }
 
   @Override

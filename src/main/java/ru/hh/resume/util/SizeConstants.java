@@ -2,5 +2,5 @@ package ru.hh.resume.util;
 
 public class SizeConstants {
 
-  public static final int LONG_TEXT = 2000;
+  public static final int LONG_TEXT = 5000;
 }

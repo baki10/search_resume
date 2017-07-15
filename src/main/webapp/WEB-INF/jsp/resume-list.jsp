@@ -11,6 +11,7 @@
     <td>position</td>
     <td>salary</td>
     <td>aboutMe</td>
+    <td>education</td>
   </tr>
   </thead>
   <tbody>
@@ -19,6 +20,7 @@
       <td><c:out value="${resume.position}"/></td>
       <td><c:out value="${resume.salary}"/></td>
       <td><c:out value="${resume.aboutMe}"/></td>
+      <td><c:out value="${resume.educationList}"/></td>
     </tr>
   </c:forEach>
   </tbody>

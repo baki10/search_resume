@@ -2,13 +2,13 @@ package ru.hh.resume.model;
 
 import ru.hh.resume.util.SizeConstants;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class Experience extends BaseEntity{
+public class Experience extends BaseEntity {
 
   private String company;
   private String url;
@@ -67,7 +67,8 @@ public class Experience extends BaseEntity{
     this.url = url;
   }
 
-  @ManyToOne(cascade = CascadeType.ALL)
+  @ManyToOne
+  @JoinColumn(name = "resume_id", nullable = false)
   public Resume getResume() {
     return resume;
   }
