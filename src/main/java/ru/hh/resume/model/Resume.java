@@ -2,6 +2,7 @@ package ru.hh.resume.model;
 
 import ru.hh.resume.util.SizeConstants;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -79,7 +80,7 @@ public class Resume extends BaseEntity {
     this.aboutMe = aboutMe;
   }
 
-  @OneToMany(mappedBy = "resume")
+  @OneToMany(mappedBy = "resume", cascade = CascadeType.ALL)
   public List<Education> getEducationList() {
     return educationList;
   }
@@ -88,7 +89,7 @@ public class Resume extends BaseEntity {
     this.educationList = educationList;
   }
 
-  @OneToMany(mappedBy = "resume")
+  @OneToMany(mappedBy = "resume", cascade = CascadeType.ALL)
   public List<Experience> getExperienceList() {
     return experienceList;
   }
