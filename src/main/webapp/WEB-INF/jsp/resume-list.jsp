@@ -8,19 +8,17 @@
 <table>
   <thead>
   <tr>
+    <td>photo</td>
     <td>position</td>
     <td>salary</td>
-    <td>aboutMe</td>
-    <td>education</td>
   </tr>
   </thead>
   <tbody>
   <c:forEach var="resume" items="${resumes}">
     <tr>
+      <td><img src="<c:out value="${resume.photoSrc}"/>" style="height: 50px; width: auto"></td>
       <td><c:out value="${resume.position}"/></td>
       <td><c:out value="${resume.salary}"/></td>
-      <td><c:out value="${resume.aboutMe}"/></td>
-      <td><c:out value="${resume.educationList}"/></td>
     </tr>
   </c:forEach>
   </tbody>
