@@ -1,6 +1,9 @@
 package ru.hh.resume.model;
 
+import ru.hh.resume.util.SizeConstants;
+
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
@@ -12,6 +15,7 @@ public class Education extends BaseEntity{
   private String type;
   private Resume resume;
 
+  @Column(length = SizeConstants.LONG_TEXT)
   public String getName() {
     return name;
   }
@@ -20,6 +24,7 @@ public class Education extends BaseEntity{
     this.name = name;
   }
 
+  @Column(length = SizeConstants.LONG_TEXT)
   public String getType() {
     return type;
   }

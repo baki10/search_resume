@@ -1,5 +1,8 @@
 package ru.hh.resume.model;
 
+import ru.hh.resume.util.SizeConstants;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
@@ -67,6 +70,7 @@ public class Resume extends BaseEntity {
     this.salary = salary;
   }
 
+  @Column(length = SizeConstants.LONG_TEXT)
   public String getAboutMe() {
     return aboutMe;
   }
@@ -103,8 +107,6 @@ public class Resume extends BaseEntity {
         ", position='" + position + '\'' +
         ", salary='" + salary + '\'' +
         ", aboutMe='" + aboutMe + '\'' +
-        ", educationList=" + educationList +
-        ", experienceList=" + experienceList +
         '}';
   }
 }

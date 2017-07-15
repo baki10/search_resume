@@ -1,6 +1,9 @@
 package ru.hh.resume.model;
 
+import ru.hh.resume.util.SizeConstants;
+
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
@@ -47,6 +50,7 @@ public class Experience extends BaseEntity{
     this.position = position;
   }
 
+  @Column(length = SizeConstants.LONG_TEXT)
   public String getDescription() {
     return description;
   }
