@@ -49,7 +49,7 @@
                    style="max-height: 50px; width: auto"/>
           </td>
           <td>
-            <a href="/resume/{{resume.id}}">
+            <a href="/resume/{{resume.id}}" target="_blank">
               <span ng-bind="resume.position"></span>
             </a>
           </td>
