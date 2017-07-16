@@ -1,10 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-  <title>Hello</title>
+  <title>Резюме</title>
 </head>
 <body>
-
-<p>${message}</p>
+  ${resume.position}
 </body>
 </html>

@@ -1,35 +1,26 @@
 package ru.hh.resume.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 import ru.hh.resume.model.Resume;
 import ru.hh.resume.service.ResumeService;
 
-import java.util.List;
-
-@RestController
+@Controller
 @RequestMapping("/resume")
 public class ResumeController {
 
   @Autowired
   private ResumeService resumeService;
 
-  @GetMapping("/refresh")
-  public List<Resume> refresh() {
-    resumeService.refreshDataFromHhRu();
-    return resumeService.getAll();
-  }
+  @GetMapping("/{id}")
+  public String resume(@PathVariable Long id, Model model){
+    Resume resume = resumeService.getById(id);
+    model.addAttribute("resume", resume);
 
-  @GetMapping("/all")
-  public List<Resume> resumes() {
-    return resumeService.getAll();
-  }
-
-  @GetMapping("/search")
-  public List<Resume> search(@RequestParam String position) {
-    return resumeService.findByPosition(position);
+    return "resume-details";
   }
 }
