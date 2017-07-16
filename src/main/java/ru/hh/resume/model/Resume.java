@@ -23,6 +23,7 @@ public class Resume extends BaseEntity {
   private List<Education> educationList;
   private List<Experience> experienceList;
 
+  @Column(length = SizeConstants.PHOTO_SRC_LENGTH)
   public String getPhotoSrc() {
     return photoSrc;
   }
@@ -48,6 +49,7 @@ public class Resume extends BaseEntity {
     this.birthday = birthday;
   }
 
+  @Column(length = SizeConstants.LONG_TEXT)
   public String getAddress() {
     return address;
   }
@@ -56,6 +58,7 @@ public class Resume extends BaseEntity {
     this.address = address;
   }
 
+  @Column(length = SizeConstants.LONG_TEXT)
   public String getPosition() {
     return position;
   }

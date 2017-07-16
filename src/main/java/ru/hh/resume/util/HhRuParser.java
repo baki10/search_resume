@@ -123,7 +123,7 @@ public class HhRuParser {
     resume.setExperienceList(experienceList);
     // skills
     Element skillsDiv = document.getElementsByAttributeValue("data-qa", "resume-block-skills").first();
-    resume.setAboutMe(text(skillsDiv));
+    resume.setAboutMe(html(skillsDiv));
     //education
     List<Education> educationList = new ArrayList<>();
     Element educationBlock = document.getElementsByAttributeValue("data-qa", "resume-block-education").first();
@@ -155,7 +155,7 @@ public class HhRuParser {
     experience.setPosition(text(positionDiv));
 
     Element descriptionDiv = experienceDiv.getElementsByAttributeValue("data-qa", "resume-block-experience-description").first();
-    experience.setDescription(text(descriptionDiv));
+    experience.setDescription(html(descriptionDiv));
 
     Element experienceUrlA = experienceDiv.getElementsByClass("resume__experience__url").first();
     experience.setUrl(experienceUrlA == null ? null : experienceUrlA.attr("href"));
@@ -181,5 +181,9 @@ public class HhRuParser {
 
   private String text(Element element) {
     return element == null ? null : element.text();
+  }
+
+  private String html(Element element) {
+    return element == null ? null : element.html().substring(0, SizeConstants.LONG_TEXT);
   }
 }

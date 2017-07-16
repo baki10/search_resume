@@ -5,6 +5,7 @@
   <title>Список резюме</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
   <link href="<c:url value='/static/css/app.css' />" rel="stylesheet">
+  <link rel="icon" type="image/png" href="/img/favicon.ico"/>
 </head>
 <body ng-app="myApp" class="ng-cloak" ng-controller="ResumeController as ctrl">
 

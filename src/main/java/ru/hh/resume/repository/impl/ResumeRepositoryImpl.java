@@ -31,7 +31,9 @@ public class ResumeRepositoryImpl implements ResumeRepository {
 
   @Override
   public Resume getById(Long id) {
-    return getSession().get(Resume.class, id);
+    Resume resume = getSession().get(Resume.class, id);
+    fetchProperties(resume);
+    return resume;
   }
 
   @Override
@@ -60,14 +62,16 @@ public class ResumeRepositoryImpl implements ResumeRepository {
   }
 
   private void fetchProperties(List<Resume> resumes) {
-    resumes.forEach(resume -> {
-      Query<Education> educationQuery = getSession().createQuery("from Education e where e.resume.id =:id", Education.class);
-      educationQuery.setParameter("id", resume.getId());
-      resume.setEducationList(educationQuery.list());
+    resumes.forEach(this::fetchProperties);
+  }
 
-      Query<Experience> experienceQuery = getSession().createQuery("from Experience e where e.resume.id =:id", Experience.class);
-      experienceQuery.setParameter("id", resume.getId());
-      resume.setExperienceList(experienceQuery.list());
-    });
+  private void fetchProperties(Resume resume) {
+    Query<Education> educationQuery = getSession().createQuery("from Education e where e.resume.id =:id", Education.class);
+    educationQuery.setParameter("id", resume.getId());
+    resume.setEducationList(educationQuery.list());
+
+    Query<Experience> experienceQuery = getSession().createQuery("from Experience e where e.resume.id =:id", Experience.class);
+    experienceQuery.setParameter("id", resume.getId());
+    resume.setExperienceList(experienceQuery.list());
   }
 }

@@ -27,6 +27,7 @@ public class Experience extends BaseEntity {
     this.duration = duration;
   }
 
+  @Column(length = SizeConstants.LONG_TEXT)
   public String getCompany() {
     return company;
   }
@@ -35,6 +36,7 @@ public class Experience extends BaseEntity {
     this.company = company;
   }
 
+  @Column(length = SizeConstants.LONG_TEXT)
   public String getAddress() {
     return address;
   }
@@ -43,6 +45,7 @@ public class Experience extends BaseEntity {
     this.address = address;
   }
 
+  @Column(length = SizeConstants.LONG_TEXT)
   public String getPosition() {
     return position;
   }
@@ -60,6 +63,7 @@ public class Experience extends BaseEntity {
     this.description = description;
   }
 
+  @Column(length = SizeConstants.LONG_TEXT)
   public String getUrl() {
     return url;
   }
