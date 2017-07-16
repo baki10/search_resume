@@ -60,4 +60,9 @@ public class ResumeServiceImpl implements ResumeService {
 
     resumeRepository.saveAll(resumes);
   }
+
+  @Override
+  public List<Resume> findByPosition(String position) {
+    return resumeRepository.findByPosition(position);
+  }
 }

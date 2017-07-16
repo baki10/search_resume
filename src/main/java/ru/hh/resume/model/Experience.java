@@ -1,5 +1,6 @@
 package ru.hh.resume.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import ru.hh.resume.util.SizeConstants;
 
 import javax.persistence.Column;
@@ -69,6 +70,7 @@ public class Experience extends BaseEntity {
 
   @ManyToOne
   @JoinColumn(name = "resume_id", nullable = false)
+  @JsonIgnore
   public Resume getResume() {
     return resume;
   }

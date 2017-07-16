@@ -17,4 +17,6 @@ public interface ResumeService {
   void refreshDataFromHhRu();
 
   void saveAll(List<Resume> resumes);
+
+  List<Resume> findByPosition(String position);
 }

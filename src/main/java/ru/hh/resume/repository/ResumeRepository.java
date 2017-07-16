@@ -15,4 +15,6 @@ public interface ResumeRepository {
   void removeAll();
 
   void saveAll(List<Resume> resumes);
+
+  List<Resume> findByPosition(String position);
 }

@@ -55,6 +55,7 @@ public class HhRuParser {
           Element resumeA = item.getElementsByClass("output__name").first();
           String resumeHref = resumeA.attr("href");
           Resume resume = parseResume(HH_RU + resumeHref);
+          logger.debug("Resume parsed: {}", resume.getPosition());
           resumeList.add(resume);
         }
 

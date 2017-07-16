@@ -1,11 +1,11 @@
 package ru.hh.resume.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import ru.hh.resume.util.SizeConstants;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import java.util.Date;
 import java.util.List;
@@ -39,6 +39,7 @@ public class Resume extends BaseEntity {
     this.gender = gender;
   }
 
+  @JsonFormat(pattern = "dd-MM-yyyy")
   public Date getBirthday() {
     return birthday;
   }
