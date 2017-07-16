@@ -6,7 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.hh.resume.model.Resume;
 import ru.hh.resume.repository.ResumeRepository;
 import ru.hh.resume.service.ResumeService;
-import ru.hh.resume.util.HhRuParser;
+import ru.hh.resume.parser.HhRuParser;
 
 import java.util.List;
 
@@ -15,10 +15,16 @@ import java.util.List;
 public class ResumeServiceImpl implements ResumeService {
 
   private ResumeRepository resumeRepository;
+  private HhRuParser parser;
 
   @Autowired
   public void setResumeRepository(ResumeRepository resumeRepository) {
     this.resumeRepository = resumeRepository;
+  }
+
+  @Autowired
+  public void setParser(HhRuParser parser) {
+    this.parser = parser;
   }
 
   @Override
@@ -43,7 +49,7 @@ public class ResumeServiceImpl implements ResumeService {
 
   @Override
   public void refreshDataFromHhRu() {
-    List<Resume> resumes = new HhRuParser().parse();
+    List<Resume> resumes = parser.parse();
     if (resumes.isEmpty()) {
       throw new RuntimeException("No resume found in hh.ru");
     }

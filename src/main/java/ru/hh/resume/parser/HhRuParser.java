@@ -1,4 +1,4 @@
-package ru.hh.resume.util;
+package ru.hh.resume.parser;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -6,9 +6,13 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.stereotype.Component;
 import ru.hh.resume.model.Education;
 import ru.hh.resume.model.Experience;
 import ru.hh.resume.model.Resume;
+import ru.hh.resume.util.SizeConstants;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -16,37 +20,36 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
+@PropertySource("classpath:parser.properties")
 public class HhRuParser {
 
   private static final Logger logger = LoggerFactory.getLogger(HhRuParser.class);
 
   private static final String HH_RU = "https://hh.ru";
-  private static final int AREA_EKB = 3;
-  private static final String SEARCH_URL = HH_RU + "/search/resume?area=" + AREA_EKB;
-  private static final int DEFAULT_LIMIT = 2;
   private static final String USER_AGENT = "Mozilla/5.0 (Windows NT 6.2; Win64; x64) " +
       "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/32.0.1667.0 Safari/537.36";
-
-  private boolean limited = true;
-  private int pageLimit = DEFAULT_LIMIT;
   private SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd");
 
-  public void setLimited(boolean limited) {
-    this.limited = limited;
-  }
+  @Value("${parser.hh.ru.area}")
+  private int area;
 
-  public void setPageLimit(int pageLimit) {
-    this.pageLimit = pageLimit;
-  }
+  @Value("${parser.limited}")
+  private boolean limited;
+
+
+  @Value("${parser.resume_limit}")
+  private int resumeLimit;
 
   public List<Resume> parse() {
-    logger.debug("Start parsing url = {}", SEARCH_URL);
+    String searchUrl = HH_RU + "/search/resume?area=" + area;
+    logger.debug("Start parsing url = {}", searchUrl);
 
     List<Resume> resumeList = new ArrayList<>();
     try {
-      Document document = Jsoup.connect(SEARCH_URL).userAgent(USER_AGENT).get();
+      Document document = Jsoup.connect(searchUrl).userAgent(USER_AGENT).get();
       boolean hasNext = true;
-      int pages = 1;
+      int resumeCount = 1;
       while (hasNext) {
         // get each resume's link
         Element table = document.getElementsByClass("output").first();
@@ -55,8 +58,15 @@ public class HhRuParser {
           Element resumeA = item.getElementsByClass("output__name").first();
           String resumeHref = resumeA.attr("href");
           Resume resume = parseResume(HH_RU + resumeHref);
-          logger.debug("Resume parsed: {}", resume.getPosition());
+          logger.debug("{}) Resume parsed: {}",resumeCount, resume.getPosition());
           resumeList.add(resume);
+          if (limited && resumeCount >= resumeLimit) {
+            break;
+          }
+          resumeCount++;
+        }
+        if (limited && resumeCount >= resumeLimit) {
+          break;
         }
 
         // check for the "next" link
@@ -69,19 +79,15 @@ public class HhRuParser {
         Element nextA = nextAs.first();
         String nextHref = nextA.attr("href");
         document = Jsoup.connect(HH_RU + nextHref).userAgent(USER_AGENT).get();
-        if (limited && pages >= pageLimit) {
-          break;
-        }
-        pages++;
       }
 
-      logger.debug("Total pages = {}, resumes = {}", pages, resumeList.size());
+      logger.debug("Total resumes = {}", resumeList.size());
 
     } catch (IOException e) {
       logger.error("Error parsing = {}", e.getMessage());
     }
 
-    logger.debug("Finish parsing url = {}", SEARCH_URL);
+    logger.debug("Finish parsing url = {}", searchUrl);
     return resumeList;
   }
 
