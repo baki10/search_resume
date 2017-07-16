@@ -11,6 +11,7 @@ angular.module('myApp').controller('ResumeController', ['$scope', 'ResumeService
     fetchAll();
 
     function fetchAll() {
+        $scope.loading = true;
         ResumeService.fetchAll()
             .then(
                 function (d) {
@@ -19,7 +20,9 @@ angular.module('myApp').controller('ResumeController', ['$scope', 'ResumeService
                 function (errResponse) {
                     console.error('Error while fetching Resumes');
                 }
-            );
+            ).finally(function () {
+            $scope.loading = false;
+        });
     }
 
     function refreshDb() {
