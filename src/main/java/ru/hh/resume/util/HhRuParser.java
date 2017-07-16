@@ -184,6 +184,11 @@ public class HhRuParser {
   }
 
   private String html(Element element) {
-    return element == null ? null : element.html().substring(0, SizeConstants.LONG_TEXT);
+    if (element == null) {
+      return null;
+    }
+    String html = element.html();
+
+    return html.length() > SizeConstants.LONG_TEXT ? html.substring(0, SizeConstants.LONG_TEXT) : html;
   }
 }
